@@ -11,10 +11,18 @@ type Heap[T any] interface {
 	Iterate() Iterator[T]
 }
 
-func NewHeap[T any](less func(a, b T) bool, elements ...T) Heap[T] {
+type HeapType int
+
+const (
+	MinHeap HeapType = iota
+	MaxHeap
+)
+
+func NewHeap[T any](t HeapType, less func(a, b T) bool, elements ...T) Heap[T] {
 	l := &list[T]{
 		elements: elements,
 		less:     less,
+		heapType: t,
 	}
 	h := &myHeap[T]{l: l}
 	// Initialize the heap
@@ -64,6 +72,7 @@ func (h *myHeap[T]) Top() T {
 
 type list[T any] struct {
 	elements []T
+	heapType HeapType
 	less     func(a, b T) bool
 }
 
@@ -91,7 +100,10 @@ func (l *list[T]) Len() int {
 }
 
 func (l *list[T]) Less(i, j int) bool {
-	return l.less(l.elements[i], l.elements[j])
+	if l.heapType == MinHeap {
+		return l.less(l.elements[i], l.elements[j])
+	}
+	return l.less(l.elements[j], l.elements[i])
 }
 
 func (l *list[T]) Swap(i, j int) {
