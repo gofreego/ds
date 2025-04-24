@@ -5,15 +5,15 @@ type Node[T any] struct {
 	Next *Node[T]
 }
 
-type listIterator[T any] struct {
+type linkedListIterator[T any] struct {
 	current *Node[T]
 }
 
-func newListIterator[T any](head *Node[T]) Iterator[*Node[T]] {
-	return &listIterator[T]{current: head}
+func newLinkedListIterator[T any](head *Node[T]) Iterator[*Node[T]] {
+	return &linkedListIterator[T]{current: head}
 }
 
-func (it *listIterator[T]) Next() *Node[T] {
+func (it *linkedListIterator[T]) Next() *Node[T] {
 	if it.current == nil {
 		panic("no more elements")
 	}
@@ -23,7 +23,7 @@ func (it *listIterator[T]) Next() *Node[T] {
 	return node
 }
 
-func (it *listIterator[T]) HasNext() bool {
+func (it *linkedListIterator[T]) HasNext() bool {
 	return it.current != nil
 }
 
@@ -71,7 +71,7 @@ func (l *linkedList[T]) IsEmpty() bool {
 
 // Iterator implements LinkedList.
 func (l *linkedList[T]) Iterator() Iterator[*Node[T]] {
-	return newListIterator(l.head)
+	return newLinkedListIterator(l.head)
 }
 
 // Prepend implements LinkedList.
