@@ -5,6 +5,7 @@ type Set[T comparable] interface {
 	Remove(value T) bool
 	Contains(value T) bool
 	Values() []T
+	Size() int
 }
 
 type set[T comparable] struct {
@@ -42,6 +43,10 @@ func (s *set[T]) Values() []T {
 		values = append(values, value)
 	}
 	return values
+}
+
+func (s *set[T]) Size() int {
+	return len(s.m)
 }
 
 // NewSet returns a new Set.
