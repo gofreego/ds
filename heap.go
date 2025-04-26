@@ -8,7 +8,6 @@ type Heap[T any] interface {
 	Top() T
 	IsEmpty() bool
 	Size() int
-	Iterate() Iterator[T]
 }
 
 type HeapType int
@@ -37,11 +36,6 @@ type myHeap[T any] struct {
 // IsEmpty implements Heap.
 func (h *myHeap[T]) IsEmpty() bool {
 	return h.l.Len() == 0
-}
-
-// Iterate implements Heap.
-func (h *myHeap[T]) Iterate() Iterator[T] {
-	return newListIterator(h.l.elements)
 }
 
 // Pop implements Heap.
