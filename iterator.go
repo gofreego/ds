@@ -10,7 +10,7 @@ type listIterator[T any] struct {
 	index   int
 }
 
-func newListIterator[T any](elements []T) Iterator[T] {
+func NewListIterator[T any](elements []T) Iterator[T] {
 	return &listIterator[T]{current: elements, index: 0}
 }
 
