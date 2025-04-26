@@ -43,7 +43,8 @@ func (h *myHeap[T]) Pop() T {
 	if h.IsEmpty() {
 		panic("no objects in heap")
 	}
-	return h.l.Pop().(T)
+	ele := heap.Pop(h.l)
+	return ele.(T)
 }
 
 // Push implements Heap.
